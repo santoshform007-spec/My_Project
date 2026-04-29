@@ -1,3 +1,4 @@
+// script.js
 let display = document.getElementById("display");
 
 function appendValue(value) {
@@ -20,26 +21,30 @@ function calculate() {
     }
 }
 
-function squareRoot() {
-    display.value = Math.sqrt(eval(display.value));
-}
+// Voice Recognition
+function startVoice() {
+    let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US";
 
-function power() {
-    display.value = Math.pow(eval(display.value), 2);
-}
+    recognition.start();
 
-function sinValue() {
-    display.value = Math.sin(eval(display.value) * Math.PI / 180);
-}
+    recognition.onresult = function (event) {
+        let speech = event.results[0][0].transcript.toLowerCase();
 
-function cosValue() {
-    display.value = Math.cos(eval(display.value) * Math.PI / 180);
-}
+        speech = speech.replace(/plus/g, "+")
+            .replace(/minus/g, "-")
+            .replace(/multiply/g, "*")
+            .replace(/into/g, "*")
+            .replace(/divide/g, "/")
+            .replace(/by/g, "")
+            .replace(/point/g, ".");
 
-function tanValue() {
-    display.value = Math.tan(eval(display.value) * Math.PI / 180);
-}
+        display.value = speech;
 
-function logValue() {
-    display.value = Math.log10(eval(display.value));
+        calculate();
+    };
+
+    recognition.onerror = function () {
+        alert("Voice recognition failed.");
+    };
 }
