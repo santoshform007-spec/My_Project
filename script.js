@@ -3,7 +3,7 @@
 let display = document.getElementById("display");
 
 function appendValue(value) {
-    display.value += value;   // Show typed value
+    display.value += value;   // Show typed values
 }
 
 function clearDisplay() {
@@ -16,7 +16,12 @@ function deleteLast() {
 
 function calculate() {
     try {
-        display.value = eval(display.value);
+        let expression = display.value;
+        let result = eval(expression);
+
+        // Show both expression and result
+        display.value = expression + " = " + result;
+
     } catch {
         display.value = "Error";
     }
@@ -33,22 +38,27 @@ function startVoice() {
 
         let speech = event.results[0][0].transcript.toLowerCase();
 
-        // Convert voice words to symbols
+        // Convert voice words into symbols
         let expression = speech.replace(/plus/g, "+")
             .replace(/minus/g, "-")
             .replace(/multiply/g, "*")
-            .replace(/into/g, "*")
             .replace(/times/g, "*")
+            .replace(/into/g, "*")
             .replace(/divide/g, "/")
             .replace(/by/g, "")
             .replace(/point/g, ".");
 
-        // Show spoken text in display first
+        // Show spoken expression first
         display.value = expression;
 
-        // Auto calculate after 1 second
+        // Calculate after 1 second
         setTimeout(() => {
-            calculate();
+            try {
+                let result = eval(expression);
+                display.value = expression + " = " + result;
+            } catch {
+                display.value = "Error";
+            }
         }, 1000);
     };
 
