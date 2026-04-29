@@ -1,8 +1,9 @@
 // script.js
+
 let display = document.getElementById("display");
 
 function appendValue(value) {
-    display.value += value;
+    display.value += value;   // Show typed value
 }
 
 function clearDisplay() {
@@ -17,7 +18,7 @@ function calculate() {
     try {
         display.value = eval(display.value);
     } catch {
-        display.value = "Phir se bol";
+        display.value = "Error";
     }
 }
 
@@ -29,19 +30,26 @@ function startVoice() {
     recognition.start();
 
     recognition.onresult = function (event) {
+
         let speech = event.results[0][0].transcript.toLowerCase();
 
-        speech = speech.replace(/plus/g, "+")
+        // Convert voice words to symbols
+        let expression = speech.replace(/plus/g, "+")
             .replace(/minus/g, "-")
             .replace(/multiply/g, "*")
             .replace(/into/g, "*")
+            .replace(/times/g, "*")
             .replace(/divide/g, "/")
             .replace(/by/g, "")
             .replace(/point/g, ".");
 
-        display.value = speech;
+        // Show spoken text in display first
+        display.value = expression;
 
-        calculate();
+        // Auto calculate after 1 second
+        setTimeout(() => {
+            calculate();
+        }, 1000);
     };
 
     recognition.onerror = function () {
