@@ -1,65 +1,133 @@
 /* style.css */
-body {
+
+* {
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #2193b0, #6dd5ed);
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1);
+    background-size: 400% 400%;
+    animation: bgMove 8s infinite alternate;
+}
+
+@keyframes bgMove {
+    0% {
+        background-position: left;
+    }
+
+    100% {
+        background-position: right;
+    }
 }
 
 .calculator {
-    background: white;
+    width: 360px;
     padding: 20px;
-    border-radius: 15px;
-    width: 320px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    text-align: center;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
-h2 {
+.calculator h2 {
+    text-align: center;
+    color: #fff;
     margin-bottom: 15px;
+    font-size: 26px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 #display {
-    width: 90%;
-    height: 50px;
-    font-size: 22px;
-    margin-bottom: 15px;
+    width: 100%;
+    height: 65px;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 28px;
     text-align: right;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #fff;
+    color: #333;
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 12px;
 }
 
 button {
-    height: 50px;
-    font-size: 20px;
+    height: 60px;
     border: none;
-    background: #f1f1f1;
-    border-radius: 10px;
+    border-radius: 15px;
+    font-size: 22px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
+    color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Different Button Colors */
+button:nth-child(1) {
+    background: #ff4d4d;
+}
+
+/* C */
+button:nth-child(2) {
+    background: #ff884d;
+}
+
+/* DEL */
+button:nth-child(3),
+button:nth-child(4),
+button:nth-child(8),
+button:nth-child(12),
+button:nth-child(16) {
+    background: #6a5acd;
+}
+
+/* operators */
+
+button:nth-child(17),
+button:nth-child(18) {
+    background: #00b894;
+}
+
+/* 0 and . */
+
+button:nth-child(19) {
+    background: linear-gradient(45deg, #ff0080, #7928ca);
+    grid-column: span 2;
+}
+
+/* Number buttons */
+button:not(:nth-child(-n+4)):not(:nth-child(8)):not(:nth-child(12)):not(:nth-child(16)):not(:nth-child(17)):not(:nth-child(18)):not(:nth-child(19)) {
+    background: #0984e3;
 }
 
 button:hover {
-    background: #ddd;
+    transform: scale(1.08);
+    opacity: 0.9;
 }
 
-.voice-btn {
-    grid-column: span 2;
-    background: #28a745;
-    color: white;
+button:active {
+    transform: scale(0.95);
 }
 
-.voice-btn:hover {
-    background: #218838;
+#voiceStatus {
+    margin-top: 12px;
+    text-align: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
 }
