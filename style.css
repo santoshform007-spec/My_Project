@@ -12,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #0a0a0a, #0c0c0c, #0f0f0f, #0a0a0a);
+    background: linear-gradient(135deg, #0f0f0f, #fad0c4, #fbc2eb, #a18cd1);
     background-size: 400% 400%;
     animation: bgMove 8s infinite alternate;
 }
